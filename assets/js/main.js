@@ -47,5 +47,24 @@ window.addEventListener("scroll", scrollHeader);
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 
 /*=============== CALCULATE JS ===============*/
+const calculateForm = document.getElementById('calculate-form'),
+      calculateCm = document.getElementById('calculate-cm'),
+      calculateKg = document.getElementById('calculate-kg'),
+      calculateMessage = document.getElementById('calculate-message')
 
+      const calculateIMC = (e) => {
+       e.preventDefault();
+
+        // Checar se os campos tem algum valor preenchido
+        if(calculateCm.value === '' || calculateKg.value === ''){
+          // Adicionar e remover cor
+          calculateMessage.classList.remove('color-green')
+          calculateMessage.classList.add('color-red')
+
+          // mostrar mensagem
+          calculateMessage.textContent = 'Preencha sua altura e peso, por favor.'
+        }
+      }
+
+      calculateForm.addEventListener('submit', calculateIMC)
 /*=============== EMAIL JS ===============*/
