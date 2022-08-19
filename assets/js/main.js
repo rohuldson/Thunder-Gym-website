@@ -98,4 +98,52 @@ const calculateIMC = (e) => {
 };
 
 calculateForm.addEventListener("submit", calculateIMC);
+
 /*=============== EMAIL JS ===============*/
+
+const contactForm = document.getElementById("contact-form"),
+  contactMessage = document.getElementById("contact-message"),
+  contactUser = document.getElementById("contact-user");
+
+const sendEmail = (e) => {
+  e.preventDefault();
+
+  // Checar se o campo é válido ou não.
+  if (contactUser.value === "") {
+    // adicionar mensagem de alerta para usuário preencer campo
+    contactMessage.classList.remove("color-green");
+    contactMessage.classList.add("color-red");
+
+    // Mostrar mensagem
+    contactMessage.textContent = "Por favor,preencha o campo com seu email 👆";
+
+    //remover menssagem após 3 segundos
+    setTimeout(() => {
+      contactMessage.textContent = "";
+    }, 4000);
+  } else {
+    // ServiceID, templateID, #form, publicKey
+    emailjs
+      .sendForm(
+        "service_zjgjd84",
+        "template_lxcp5pa",
+        "#contact-form",
+        "jUnNvRe9PKffk0vFV"
+      )
+      .then( () => {
+          contactMessage.classList.add("color-green");
+          contactMessage.textContent = "Inscrição realizada com sucesso!";
+          // sumir com mensagem de alerta
+          setTimeout(() => {
+            contactMessage.textContent = ""
+          }, 3000)
+        }, (error) => {
+          alert('OOPS! Algo de errado não está certo, verifique seu email.', error)
+        });
+
+    // limpar campo de email
+    contactUser.value = ''
+  }
+};
+
+contactForm.addEventListener("submit", sendEmail);
